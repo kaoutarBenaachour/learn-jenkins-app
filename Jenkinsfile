@@ -4,6 +4,7 @@ pipeline {
     environment {
         NETLIFY_AUTH_TOKEN = credentials('netlify-token-id') // Jenkins credential ID for Netlify token
         NETLIFY_SITE_ID = 'f7321919-806f-4e06-b5d5-7bd2af7f34f3' // Replace with your actual Netlify Site ID
+        SONARQUBE_TOKEN = credentials('sonarqube') // Jenkins credential ID for SonarQube token
     }
 
     stages {
@@ -25,7 +26,24 @@ pipeline {
                 '''
             }
         }
-        
+
+        stage('SonarQube Analysis') {
+            agent any
+            steps {
+                script {
+                    // Run SonarQube analysis
+                    sh """
+                    sonar-scanner \
+                        -Dsonar.projectKey=my_project_key \
+                        -Dsonar.projectName=jenkins_project \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://localhost:9001 \
+                        -Dsonar.login=$SONARQUBE_TOKEN
+                    """
+                }
+            }
+        }
+
         stage('Test') {
             agent {
                 docker {
