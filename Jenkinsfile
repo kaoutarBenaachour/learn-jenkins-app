@@ -42,7 +42,7 @@ pipeline {
                         -Dsonar.projectKey=jenkins_project \
                         -Dsonar.projectName=jenkins_project \
                         -Dsonar.sources=. \
-                        -Dsonar.host.url=http://localhost:9001 \
+                        -Dsonar.host.url=http://127.0.0.1:9001 \
                         -Dsonar.login=$SONARQUBE_TOKEN
                     """
                 }
