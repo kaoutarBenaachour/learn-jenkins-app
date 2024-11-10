@@ -7,12 +7,6 @@ pipeline {
 
     stages {
         stage('SonarQube Analysis') {
-            agent {
-                docker {
-                    image 'sonarsource/sonar-scanner-cli:4.8'
-                    reuseNode true
-                }
-            }
             steps {
                 script {
                     // Run SonarQube analysis
