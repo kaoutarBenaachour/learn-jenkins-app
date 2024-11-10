@@ -39,7 +39,7 @@ pipeline {
                     // Run SonarQube analysis
                     sh """
                     sonar-scanner \
-                        -Dsonar.projectKey=my_project_key \
+                        -Dsonar.projectKey=jenkins_project \
                         -Dsonar.projectName=jenkins_project \
                         -Dsonar.sources=. \
                         -Dsonar.host.url=http://localhost:9001 \
