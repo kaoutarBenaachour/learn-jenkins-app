@@ -28,7 +28,12 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            agent any
+            agent {
+                docker {
+                    image 'sonarsource/sonar-scanner-cli:4.8'
+                    reuseNode true
+                }
+            }
             steps {
                 script {
                     // Run SonarQube analysis
@@ -43,6 +48,7 @@ pipeline {
                 }
             }
         }
+
 
         stage('Test') {
             agent {
