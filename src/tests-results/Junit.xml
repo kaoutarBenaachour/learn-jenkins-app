@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="ExampleTestSuite" tests="1" failures="0" errors="0" skipped="0" timestamp="2024-11-09T12:00:00" time="0.123">
+  <testsuite name="src/App.test.js" tests="1" failures="0" errors="0" skipped="0" timestamp="2024-11-09T12:00:00" time="0.123">
     <testcase classname="ExampleTest" name="exampleTestCase" time="0.123"/>
   </testsuite>
 </testsuites>
