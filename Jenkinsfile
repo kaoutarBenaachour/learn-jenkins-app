@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        NETLIFY_AUTH_TOKEN = credentials('nfp_JHXsWfYSdkNcosxG1TWqU5eBpcNyWYg713a8') // Jenkins credential ID for Netlify token
+        NETLIFY_AUTH_TOKEN = credentials('netlify-token-id') // Jenkins credential ID for Netlify token
+        NETLIFY_SITE_ID = 'f7321919-806f-4e06-b5d5-7bd2af7f34f3' // Replace with your actual Netlify Site ID
     }
 
     stages {
@@ -24,7 +25,7 @@ pipeline {
                 '''
             }
         }
-
+        
         stage('Test') {
             agent {
                 docker {
@@ -54,16 +55,10 @@ pipeline {
             }
             steps {
                 sh '''
-            # Ensure we're not in a directory that expects package.json
-            npm install -g --unsafe-perm netlify-cli --prefix /usr/local  # Install netlify-cli globally
-
-            # Verify netlify-cli was installed
-            /usr/local/bin/netlify --version
-
-            # Deploy to Netlify
-            DEPLOY_URL=$(netlify deploy --prod --dir=build --auth=$NETLIFY_AUTH_TOKEN | grep "Live URL:" | awk '{print $3}')
-            echo "App deployed at: $DEPLOY_URL"
-        '''
+                    npm install netlify-cli
+                    node_modules/.bin/netlify --version
+                    node_modules/.bin/netlify deploy --prod --dir=build --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN
+                '''
             }
         }
     }
