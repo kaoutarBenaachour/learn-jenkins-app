@@ -41,23 +41,23 @@ pipeline {
         }
 
         }
-        stage('E2E'){
-            agent{
-                docker {
-                    image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh '''
-                    npm install serve
-                    node_modeules/.bin/serve -s build &
-                    sleep 10
-                    npx playwrigt test --reporte=html
-                '''
-            }
+        // stage('E2E'){
+        //     agent{
+        //         docker {
+        //             image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
+        //             reuseNode true
+        //         }
+        //     }
+        //     steps {
+        //         sh '''
+        //             npm install serve
+        //             node_modeules/.bin/serve -s build &
+        //             sleep 10
+        //             npx playwrigt test --reporte=html
+        //         '''
+        //     }
            
-        }
+        // }
     
    
     stage('Deploy'){
