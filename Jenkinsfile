@@ -54,8 +54,8 @@ pipeline {
             }
             steps {
                 sh '''
-                    npm install netlify-cli
-                    netlify --version
+                    npm install -g --unsafe-perm netlify-cli // Global install with unsafe-perm
+                    netlify --version  // Run netlify
                     DEPLOY_URL=$(netlify deploy --prod --dir=build --auth=$NETLIFY_AUTH_TOKEN | grep "Live URL:" | awk '{print $3}')
                     echo "App deployed at: $DEPLOY_URL"
                 '''
